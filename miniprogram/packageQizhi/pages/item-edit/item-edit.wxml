@@ -1,0 +1,48 @@
+<view class="page">
+  <view class="card">
+    <view class="field">
+      <view class="label">所属分类</view>
+      <picker mode="selector" range="{{categoryNames}}" value="{{categoryIndex}}" bindchange="onCategoryChange">
+        <view class="input picker {{!categoryId ? 'placeholder' : ''}}">
+          {{categoryId ? categoryNames[categoryIndex] : '请选择分类'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="field">
+      <view class="label">项目名称</view>
+      <input class="input fill" placeholder="例如：全屋水电开槽" value="{{name}}" maxlength="60" bindinput="onNameInput" />
+    </view>
+
+    <view class="row-2">
+      <view class="field half">
+        <view class="label">预估金额</view>
+        <input class="input fill" type="digit" placeholder="待填写" value="{{estimated}}" bindinput="onEstimatedInput" />
+      </view>
+      <view class="field half">
+        <view class="label">实际金额</view>
+        <input class="input fill" type="digit" placeholder="待填写" value="{{actual}}" bindinput="onActualInput" />
+      </view>
+    </view>
+
+    <view class="diff-box">
+      <text>差额（自动）</text>
+      <text class="money {{diffClass}}">{{diffText}}</text>
+    </view>
+
+    <view class="field">
+      <view class="label">品牌 / 规格备注</view>
+      <input class="input" placeholder="选填" value="{{brandSpec}}" maxlength="80" bindinput="onBrandInput" />
+    </view>
+
+    <view class="field">
+      <view class="label">备注</view>
+      <textarea class="textarea" placeholder="选填" value="{{note}}" maxlength="200" auto-height bindinput="onNoteInput" />
+    </view>
+  </view>
+
+  <view class="footer">
+    <button class="btn-primary" bindtap="onSave">保存</button>
+    <button wx:if="{{id}}" class="btn-danger" bindtap="onDelete">删除此条</button>
+  </view>
+</view>

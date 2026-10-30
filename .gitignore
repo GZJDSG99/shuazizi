@@ -1,0 +1,9 @@
+.superpowers/
+node_modules/
+miniprogram_npm/
+.DS_Store
+Thumbs.db
+*.log
+.idea/
+.vscode/
+project.private.config.json

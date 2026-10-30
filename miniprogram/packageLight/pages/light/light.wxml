@@ -1,0 +1,49 @@
+<view class="page" style="background: {{color}};" bindtap="onToggleControls">
+  <view
+    class="nav {{controlsVisible ? '' : 'is-hidden'}}"
+    style="padding-top: {{statusBarHeight}}px;"
+    catchtap="noop"
+  >
+    <view class="nav-inner" style="height: {{navBarHeight}}px;">
+      <view class="nav-back" catchtap="onBack">‹</view>
+      <text class="nav-title">补光灯</text>
+    </view>
+  </view>
+
+  <view wx:if="{{!controlsVisible}}" class="hint">轻触显示控制</view>
+
+  <view
+    class="dock {{controlsVisible ? '' : 'is-hidden'}}"
+    catchtap="noop"
+  >
+    <view class="modes">
+      <view
+        wx:for="{{modes}}"
+        wx:key="id"
+        class="mode {{modeId === item.id ? 'mode-on' : ''}}"
+        style="background: {{item.color}};"
+        data-id="{{item.id}}"
+        catchtap="onPickMode"
+      >
+        <text class="mode-name">{{item.name}}</text>
+      </view>
+    </view>
+
+    <view class="bright-row">
+      <text class="bright-label">亮度</text>
+      <slider
+        class="bright-slider"
+        min="10"
+        max="100"
+        step="1"
+        value="{{brightnessPct}}"
+        activeColor="#111827"
+        backgroundColor="rgba(17,24,39,0.12)"
+        block-size="22"
+        bindchanging="onBrightnessChanging"
+        bindchange="onBrightnessChange"
+      />
+      <text class="bright-pct">{{brightnessPct}}%</text>
+    </view>
+  </view>
+</view>

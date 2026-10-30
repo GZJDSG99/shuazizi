@@ -1,0 +1,101 @@
+<view class="page">
+  <view class="nav" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-inner" style="height: {{navBarHeight}}px;">
+      <view class="nav-back" bindtap="onBack">‹</view>
+      <text class="nav-title">耶巴蒂，莱维贝贝~</text>
+    </view>
+  </view>
+
+  <view class="body" style="padding-top: {{navTotalHeight}}px;">
+    <view class="done">
+      <view class="done-head">
+        <text class="done-title">已完成</text>
+        <view
+          class="done-add {{resting ? 'is-disabled' : ''}}"
+          bindtap="onAddDone"
+        >＋ 添加</view>
+      </view>
+      <view wx:if="{{!doneActions.length}}" class="done-empty">还没有记录，做完一个动作可点添加</view>
+      <view wx:else class="done-list">
+        <view
+          class="done-item"
+          wx:for="{{doneActions}}"
+          wx:key="id"
+        >
+          <view class="done-main">
+            <text class="done-name">{{item.name}}</text>
+            <text class="done-sets">{{item.sets}} 组</text>
+          </view>
+          <view
+            class="done-del {{resting ? 'is-disabled' : ''}}"
+            data-id="{{item.id}}"
+            catchtap="onRemoveDone"
+          >删除</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="action" bindtap="onEditAction">
+      <text class="action-label">当前动作</text>
+      <view class="action-row">
+        <text class="action-name">{{actionName}}</text>
+        <text class="action-edit">改</text>
+      </view>
+    </view>
+
+    <view class="stage">
+      <view
+        class="stage-share {{canShare && !sharing ? '' : 'is-disabled'}}"
+        bindtap="onShareToday"
+      >{{sharing ? '…' : '分享'}}</view>
+      <block wx:if="{{resting}}">
+        <text class="stage-label">休息中</text>
+        <text class="stage-num">{{remainText}}</text>
+        <text class="stage-hint">第 {{sets}} 组已完成</text>
+      </block>
+      <block wx:else>
+        <text class="stage-label">当前组数</text>
+        <text class="stage-num">{{sets}}</text>
+        <text class="stage-hint">完成一组后再休息</text>
+      </block>
+    </view>
+
+    <view class="panel">
+      <text class="panel-title">组间休息</text>
+      <view class="presets">
+        <view
+          wx:for="{{presets}}"
+          wx:key="*this"
+          class="preset {{restSeconds === item ? 'preset-on' : ''}} {{resting ? 'preset-disabled' : ''}}"
+          data-sec="{{item}}"
+          bindtap="onPickPreset"
+        >{{item}}s</view>
+      </view>
+      <view class="custom {{resting ? 'custom-disabled' : ''}}">
+        <view class="custom-btn" data-delta="-5" bindtap="onAdjustRest">−5</view>
+        <text class="custom-val">{{restSeconds}} 秒</text>
+        <view class="custom-btn" data-delta="5" bindtap="onAdjustRest">+5</view>
+      </view>
+    </view>
+
+    <view class="actions">
+      <button
+        wx:if="{{resting}}"
+        class="btn-main btn-skip"
+        bindtap="onSkipRest"
+      >跳过休息</button>
+      <button
+        wx:else
+        class="btn-main"
+        bindtap="onCompleteSet"
+      >完成本组</button>
+      <button
+        class="btn-sub"
+        disabled="{{resting || sets === 0}}"
+        bindtap="onResetSets"
+      >重置组数</button>
+    </view>
+  </view>
+
+  <canvas type="2d" id="yebadiShareCanvas" class="share-canvas"></canvas>
+</view>

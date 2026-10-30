@@ -1,0 +1,37 @@
+<view class="page">
+  <image class="bg" src="/images/caicai-bg.jpg" mode="aspectFill" />
+  <view class="veil"></view>
+
+  <view class="nav" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-inner" style="height: {{navBarHeight}}px;">
+      <view class="nav-back" bindtap="onBack">‹</view>
+      <text class="nav-title">来财</text>
+    </view>
+  </view>
+
+  <view class="body" style="padding-top: {{navTotalHeight}}px;">
+    <view class="sign {{reveal ? 'is-in' : ''}}">
+      <text class="sign-label">今日招财签</text>
+      <text class="sign-date">{{dateLabel}}</text>
+      <text class="sign-title">{{title}}</text>
+      <text class="sign-line">{{line}}</text>
+      <view class="sign-actions">
+        <view
+          class="btn ghost"
+          bindtap="onRefreshSign"
+          hover-class="btn-hover"
+          hover-stay-time="80"
+        >换一支</view>
+        <view
+          class="btn primary {{sharing ? 'is-busy' : ''}}"
+          bindtap="onShareCard"
+          hover-class="btn-hover"
+          hover-stay-time="80"
+        >{{sharing ? '生成中' : '分享日签'}}</view>
+      </view>
+    </view>
+    <text class="foot">刷子zi · 自爱·自由·自强</text>
+  </view>
+
+  <canvas type="2d" id="caicaiShareCanvas" class="share-canvas"></canvas>
+</view>

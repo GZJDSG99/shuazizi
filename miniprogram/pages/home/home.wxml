@@ -1,0 +1,141 @@
+<view class="page {{theme === 'dark' ? 'theme-dark' : 'theme-light'}}">
+  <view class="nav" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-inner" style="height: {{navBarHeight}}px;">
+      <text class="nav-logo">刷子zi</text>
+      <view class="nav-actions">
+        <view
+          class="mode-btn {{viewMode === 'box' ? 'is-box' : ''}}"
+          bindtap="onToggleViewMode"
+          hover-class="mode-btn-hover"
+          hover-stay-time="80"
+        >{{viewMode === 'box' ? '列表' : '箱子'}}</view>
+        <view
+          class="theme-toggle {{theme === 'dark' ? 'is-dark' : ''}} {{themeBounce ? 'is-bounce' : ''}}"
+          bindtap="onToggleTheme"
+          hover-class="theme-toggle-hover"
+          hover-stay-time="80"
+        >
+          <view class="theme-knob">
+            <text class="theme-icon">{{theme === 'dark' ? '☾' : '☀'}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="body" style="padding-top: {{navTotalHeight}}px;">
+    <view class="hero-row">
+      <image class="hero-bg" src="/images/quote-bg.jpg" mode="aspectFit" />
+    </view>
+
+    <view class="quote" wx:if="{{quote}}">
+      <text class="quote-label">今日一句</text>
+      <view class="quote-main" bindtap="onRefreshQuote">
+        <text class="quote-mark">“</text>
+        <text class="quote-text">{{quote}}</text>
+        <text class="quote-tip">点击换一句</text>
+      </view>
+      <view
+        class="quote-share {{quoteSharing ? 'is-busy' : ''}}"
+        catchtap="onShareQuote"
+        hover-class="quote-share-hover"
+        hover-stay-time="80"
+      >{{quoteSharing ? '生成中' : '分享'}}</view>
+    </view>
+
+    <canvas type="2d" id="quoteShareCanvas" class="quote-share-canvas"></canvas>
+
+    <!-- 列表模式 -->
+    <view wx:if="{{viewMode === 'list'}}" class="panel {{sorting ? 'panel-sorting' : ''}}">
+      <view
+        wx:for="{{tools}}"
+        wx:key="id"
+        class="row {{index === tools.length - 1 ? 'row-last' : ''}} {{dragIndex === index ? 'row-dragging' : ''}}"
+        hover-class="{{sorting ? 'none' : 'row-hover'}}"
+        hover-stay-time="80"
+        data-id="{{item.id}}"
+        data-index="{{index}}"
+        bindtap="onTapTool"
+        bindlongpress="onLongPress"
+        bindtouchmove="onTouchMove"
+        bindtouchend="onTouchEnd"
+        bindtouchcancel="onTouchCancel"
+      >
+        <image
+          wx:if="{{item.icon}}"
+          class="row-icon"
+          src="{{item.icon}}"
+          mode="aspectFit"
+        />
+        <view wx:else class="row-icon row-icon-fallback">{{item.mark}}</view>
+
+        <view class="row-text">
+          <text class="row-name">{{item.name}}</text>
+          <text class="row-desc">{{item.desc}}</text>
+        </view>
+
+        <view class="row-trail">
+          <text class="row-handle">☰</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 箱子模式 -->
+    <view wx:else class="toy-box">
+      <view class="toy-stage" id="toyStage">
+        <view class="toy-floor"></view>
+        <view wx:if="{{boomFlash}}" class="boom-flash"></view>
+        <view
+          wx:if="{{boxTipVisible}}"
+          class="box-tip"
+          catchtap="onDismissBoxTip"
+        >晃一晃 · 点点看</view>
+        <view
+          wx:for="{{tiles}}"
+          wx:key="id"
+          class="toy-tile {{item.kind === 'egg' ? 'toy-egg' : ''}}"
+          style="{{item.style}}"
+          data-id="{{item.id}}"
+          bindtap="onTapToy"
+        >
+          <image
+            wx:if="{{item.icon}}"
+            class="toy-icon {{item.kind === 'egg' ? 'toy-icon-egg' : ''}}"
+            src="{{item.icon}}"
+            mode="aspectFit"
+          />
+          <text wx:else class="toy-mark">{{item.mark}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="footer-slogan">自爱·自由·自强</view>
+  </view>
+
+  <!-- 彩蛋表情包 -->
+  <view wx:if="{{eggMeme}}" class="meme-mask" bindtap="onCloseEggMeme">
+    <view class="meme-card" catchtap="noop">
+      <image class="meme-img" src="{{eggMeme}}" mode="widthFix" />
+      <view class="meme-close" bindtap="onCloseEggMeme">关闭</view>
+    </view>
+  </view>
+
+  <!-- 简介卡 -->
+  <view wx:if="{{preview}}" class="preview-mask" bindtap="onClosePreview">
+    <view class="preview-card" catchtap="noop">
+      <image
+        wx:if="{{preview.icon}}"
+        class="preview-icon"
+        src="{{preview.icon}}"
+        mode="aspectFit"
+      />
+      <view wx:else class="preview-icon preview-icon-fallback">{{preview.mark}}</view>
+      <text class="preview-name">{{preview.name}}</text>
+      <text class="preview-desc">{{preview.desc || '打开这个小工具'}}</text>
+      <view class="preview-actions">
+        <view class="preview-btn ghost" bindtap="onClosePreview">关闭</view>
+        <view class="preview-btn primary" data-id="{{preview.id}}" bindtap="onUsePreview">去使用</view>
+      </view>
+    </view>
+  </view>
+</view>

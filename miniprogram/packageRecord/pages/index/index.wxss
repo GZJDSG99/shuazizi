@@ -1,0 +1,488 @@
+.page {
+  min-height: 100vh;
+  background: #f2f3f5;
+}
+
+.nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 100;
+  background: rgba(242, 243, 245, 0.92);
+  backdrop-filter: blur(20px);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  padding-left: 8rpx;
+  padding-right: 220rpx;
+  box-sizing: border-box;
+}
+
+.nav-back {
+  width: 72rpx;
+  height: 64rpx;
+  line-height: 56rpx;
+  text-align: center;
+  font-size: 48rpx;
+  color: #111827;
+  font-weight: 300;
+}
+
+.nav-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #111827;
+}
+
+.body {
+  padding: 12rpx 36rpx calc(48rpx + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+
+/* —— 播放器卡（Billie Jean Riff 气质） —— */
+.player {
+  position: relative;
+  margin-top: 120rpx;
+  padding: 44rpx 40rpx 36rpx;
+  background: #ffffff;
+  border-radius: 36rpx;
+  box-shadow: 0 18rpx 48rpx rgba(17, 24, 39, 0.08);
+  overflow: visible;
+}
+
+.slot-wrap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -112rpx;
+  height: 112rpx;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.slot {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 200rpx;
+  height: 8rpx;
+  margin-left: -100rpx;
+  border-radius: 999rpx;
+  background: #1f2937;
+  box-shadow: inset 0 2rpx 4rpx rgba(0, 0, 0, 0.35);
+  z-index: 2;
+}
+
+.disc {
+  position: absolute;
+  bottom: -84rpx;
+  width: 168rpx;
+  height: 168rpx;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #4b5563 0%, #111827 48%, #000000 100%);
+  box-shadow: 0 10rpx 24rpx rgba(17, 24, 39, 0.22);
+  transform: translateY(24rpx) scale(0.92);
+  opacity: 0;
+  transition: transform 0.45s cubic-bezier(0.34, 1.2, 0.64, 1), opacity 0.28s ease;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.disc.is-out {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.disc.is-spin {
+  animation: disc-spin 3.6s linear infinite;
+}
+
+@keyframes disc-spin {
+  from { transform: translateY(0) scale(1) rotate(0deg); }
+  to { transform: translateY(0) scale(1) rotate(360deg); }
+}
+
+.disc-ring,
+.disc-ring-2 {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border: 2rpx solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.disc-ring {
+  width: 78%;
+  height: 78%;
+}
+
+.disc-ring-2 {
+  width: 52%;
+  height: 52%;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.disc-label {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 56rpx;
+  height: 56rpx;
+  margin: -28rpx 0 0 -28rpx;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #fde68a, #f59e0b 45%, #b45309);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 0 4rpx rgba(255, 255, 255, 0.25);
+}
+
+.disc-hole {
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 50%;
+  background: #111827;
+}
+
+.status-row {
+  margin-top: 8rpx;
+  min-height: 36rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10rpx;
+}
+
+.eq {
+  width: 22rpx;
+  height: 18rpx;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 3rpx;
+}
+
+.eq-bar {
+  width: 4rpx;
+  height: 6rpx;
+  border-radius: 2rpx;
+  background: #93c5fd;
+  opacity: 0.45;
+}
+
+.eq.is-on .eq-bar {
+  opacity: 1;
+  background: #60a5fa;
+  animation: eq-bounce 0.7s ease-in-out infinite;
+}
+
+.eq.is-on .eq-bar:nth-child(2) {
+  animation-delay: 0.12s;
+}
+
+.eq.is-on .eq-bar:nth-child(3) {
+  animation-delay: 0.24s;
+}
+
+@keyframes eq-bounce {
+  0%, 100% { height: 6rpx; }
+  50% { height: 16rpx; }
+}
+
+.status-text {
+  font-size: 20rpx;
+  letter-spacing: 2rpx;
+  color: #60a5fa;
+  font-weight: 700;
+}
+
+.player.is-recording .status-text {
+  color: #f87171;
+}
+
+.player.is-recording .eq-bar,
+.player.is-recording .eq.is-on .eq-bar {
+  background: #f87171;
+}
+
+.track-title {
+  display: block;
+  margin-top: 28rpx;
+  text-align: center;
+  font-size: 40rpx;
+  font-weight: 800;
+  color: #111827;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.track-sub {
+  display: block;
+  margin-top: 12rpx;
+  text-align: center;
+  font-size: 24rpx;
+  color: #9ca3af;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.progress-block {
+  margin-top: 40rpx;
+}
+
+.progress-track {
+  position: relative;
+  height: 6rpx;
+  border-radius: 999rpx;
+  background: #e5e7eb;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 999rpx;
+  background: #111827;
+  width: 0;
+}
+
+.progress-knob {
+  position: absolute;
+  top: 50%;
+  width: 18rpx;
+  height: 18rpx;
+  margin-left: -9rpx;
+  margin-top: -9rpx;
+  border-radius: 50%;
+  background: #111827;
+  box-shadow: 0 2rpx 6rpx rgba(17, 24, 39, 0.2);
+}
+
+.progress-times {
+  margin-top: 12rpx;
+  display: flex;
+  justify-content: space-between;
+  font-size: 20rpx;
+  color: #9ca3af;
+}
+
+.controls {
+  margin-top: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 48rpx;
+}
+
+.ctrl-side {
+  width: 64rpx;
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #111827;
+}
+
+.ctrl-side.is-disabled {
+  opacity: 0.28;
+  pointer-events: none;
+}
+
+.skip {
+  width: 0;
+  height: 0;
+  border-top: 12rpx solid transparent;
+  border-bottom: 12rpx solid transparent;
+  position: relative;
+}
+
+.skip-prev {
+  border-right: 18rpx solid #111827;
+}
+
+.skip-prev::before {
+  content: '';
+  position: absolute;
+  left: 16rpx;
+  top: -12rpx;
+  width: 5rpx;
+  height: 24rpx;
+  background: #111827;
+}
+
+.skip-next {
+  border-left: 18rpx solid #111827;
+}
+
+.skip-next::after {
+  content: '';
+  position: absolute;
+  right: 16rpx;
+  top: -12rpx;
+  width: 5rpx;
+  height: 24rpx;
+  background: #111827;
+}
+
+.ctrl-main {
+  width: 108rpx;
+  height: 108rpx;
+  border-radius: 50%;
+  background: #111827;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10rpx 24rpx rgba(17, 24, 39, 0.22);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.ctrl-main-hover {
+  transform: scale(0.96);
+}
+
+.ctrl-main.mode-idle,
+.ctrl-main.mode-rec {
+  background: #ef4444;
+  box-shadow: 0 10rpx 24rpx rgba(239, 68, 68, 0.28);
+}
+
+.icon-play {
+  font-size: 34rpx;
+  margin-left: 4rpx;
+}
+
+.icon-pause {
+  font-size: 28rpx;
+  letter-spacing: 2rpx;
+}
+
+.icon-rec {
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+.icon-stop {
+  width: 30rpx;
+  height: 30rpx;
+  border-radius: 6rpx;
+  background: #ffffff;
+}
+
+/* —— 列表 —— */
+.list-head {
+  margin: 36rpx 8rpx 16rpx;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.list-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #111827;
+}
+
+.list-count {
+  font-size: 22rpx;
+  color: #9ca3af;
+}
+
+.list-card {
+  background: #ffffff;
+  border-radius: 28rpx;
+  overflow: hidden;
+  box-shadow: 0 1rpx 0 rgba(17, 24, 39, 0.04);
+}
+
+.item {
+  padding: 26rpx 28rpx 22rpx;
+  border-bottom: 1rpx solid #f0f1f3;
+}
+
+.item-last {
+  border-bottom: none;
+}
+
+.item.is-current {
+  background: #f8fafc;
+}
+
+.item-main {
+  display: flex;
+  align-items: center;
+}
+
+.item-index {
+  width: 48rpx;
+  text-align: center;
+  font-size: 24rpx;
+  color: #9ca3af;
+  flex-shrink: 0;
+}
+
+.item.is-current .item-index {
+  color: #60a5fa;
+  font-weight: 700;
+}
+
+.item-text {
+  flex: 1;
+  min-width: 0;
+  margin-left: 8rpx;
+}
+
+.item-name {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #111827;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.item-meta {
+  display: block;
+  margin-top: 6rpx;
+  font-size: 22rpx;
+  color: #9ca3af;
+}
+
+.item-actions {
+  margin-top: 14rpx;
+  padding-left: 56rpx;
+  display: flex;
+  gap: 24rpx;
+}
+
+.action {
+  font-size: 24rpx;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.action-danger {
+  color: #ef4444;
+}
+
+.empty {
+  margin-top: 40rpx;
+  text-align: center;
+}
+
+.empty-text {
+  font-size: 26rpx;
+  color: #9ca3af;
+}

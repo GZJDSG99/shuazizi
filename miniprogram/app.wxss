@@ -1,0 +1,102 @@
+page {
+  --color-primary: #111827;
+  --color-primary-soft: #f2f3f5;
+  --color-ink: #111827;
+  --color-fill: #fff8d6;
+  --color-fill-border: #e8d48a;
+  --color-over: #dc2626;
+  --color-save: #059669;
+  --color-text: #111827;
+  --color-muted: #9ca3af;
+  --color-border: #f0f1f3;
+  --color-bg: #f2f3f5;
+  --radius: 20rpx;
+  --space: 24rpx;
+
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+view, text, navigator, button, input, textarea, picker, scroll-view {
+  box-sizing: border-box;
+}
+
+.money {
+  font-variant-numeric: tabular-nums;
+  font-family: "DIN Alternate", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.diff-over {
+  color: var(--color-over);
+}
+
+.diff-save {
+  color: var(--color-save);
+}
+
+.diff-zero {
+  color: var(--color-muted);
+}
+
+.btn-primary {
+  background: #111827;
+  color: #fff;
+  border-radius: 16rpx;
+  font-size: 30rpx;
+  line-height: 2.6;
+  padding: 0;
+  font-weight: 600;
+}
+
+.btn-primary::after {
+  border: none;
+}
+
+.btn-ghost {
+  background: #fff;
+  color: var(--color-text);
+  border: 1rpx solid #e5e7eb;
+  border-radius: 16rpx;
+  font-size: 28rpx;
+  line-height: 2.4;
+  padding: 0;
+}
+
+.btn-ghost::after {
+  border: none;
+}
+
+.btn-danger {
+  background: #fff;
+  color: var(--color-over);
+  border: 1rpx solid #fecaca;
+  border-radius: 16rpx;
+  font-size: 28rpx;
+  line-height: 2.4;
+  padding: 0;
+}
+
+.btn-danger::after {
+  border: none;
+}
+
+.empty {
+  padding: 80rpx 40rpx;
+  text-align: center;
+  color: var(--color-muted);
+}
+
+.empty-title {
+  font-size: 32rpx;
+  color: var(--color-text);
+  margin-bottom: 12rpx;
+  font-weight: 600;
+}
+
+.empty-desc {
+  font-size: 26rpx;
+  margin-bottom: 32rpx;
+  line-height: 1.5;
+}

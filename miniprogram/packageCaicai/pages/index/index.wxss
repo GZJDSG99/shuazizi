@@ -1,0 +1,178 @@
+.page {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: #7a1212;
+}
+
+.bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.veil {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(40, 0, 0, 0.35) 0%,
+    rgba(40, 0, 0, 0.2) 40%,
+    rgba(40, 0, 0, 0.55) 100%
+  );
+  pointer-events: none;
+}
+
+.nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 100;
+  background: linear-gradient(180deg, rgba(80, 8, 8, 0.45), transparent);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  padding-left: 8rpx;
+  padding-right: 220rpx;
+  box-sizing: border-box;
+}
+
+.nav-back {
+  width: 72rpx;
+  height: 64rpx;
+  line-height: 56rpx;
+  text-align: center;
+  font-size: 48rpx;
+  color: #fff7e6;
+  font-weight: 300;
+}
+
+.nav-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #fff7e6;
+  text-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.25);
+}
+
+.body {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 24rpx 40rpx calc(48rpx + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sign {
+  background: rgba(255, 248, 240, 0.94);
+  border-radius: 28rpx;
+  padding: 48rpx 36rpx 40rpx;
+  box-shadow: 0 16rpx 48rpx rgba(0, 0, 0, 0.22);
+  opacity: 0;
+  transform: translateY(24rpx) scale(0.98);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+.sign.is-in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.sign-label {
+  display: block;
+  font-size: 22rpx;
+  color: #9a3412;
+  letter-spacing: 4rpx;
+  font-weight: 600;
+}
+
+.sign-date {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 22rpx;
+  color: #a8a29e;
+}
+
+.sign-title {
+  display: block;
+  margin-top: 36rpx;
+  font-size: 56rpx;
+  font-weight: 800;
+  color: #991b1b;
+  letter-spacing: 4rpx;
+  line-height: 1.2;
+}
+
+.sign-line {
+  display: block;
+  margin-top: 24rpx;
+  font-size: 28rpx;
+  color: #44403c;
+  line-height: 1.65;
+  font-weight: 500;
+  min-height: 96rpx;
+}
+
+.sign-actions {
+  display: flex;
+  gap: 16rpx;
+  margin-top: 40rpx;
+}
+
+.btn {
+  flex: 1;
+  height: 72rpx;
+  border-radius: 999rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+  line-height: 72rpx;
+  text-align: center;
+}
+
+.btn.ghost {
+  background: rgba(153, 27, 27, 0.08);
+  color: #991b1b;
+}
+
+.btn.primary {
+  background: #991b1b;
+  color: #fff7ed;
+}
+
+.btn-hover {
+  opacity: 0.88;
+}
+
+.btn.is-busy {
+  opacity: 0.55;
+}
+
+.foot {
+  margin-top: 36rpx;
+  text-align: center;
+  font-size: 22rpx;
+  color: rgba(255, 247, 230, 0.78);
+  letter-spacing: 2rpx;
+  text-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.3);
+}
+
+.share-canvas {
+  position: fixed;
+  left: -9999px;
+  top: -9999px;
+  width: 750px;
+  height: 1000px;
+  pointer-events: none;
+}

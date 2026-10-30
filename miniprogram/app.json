@@ -1,0 +1,86 @@
+{
+  "pages": [
+    "pages/home/home"
+  ],
+  "subpackages": [
+    {
+      "root": "packageQizhi",
+      "name": "qizhi",
+      "pages": [
+        "pages/lists/lists",
+        "pages/index/index",
+        "pages/item-edit/item-edit",
+        "pages/category/category"
+      ]
+    },
+    {
+      "root": "packageYebadi",
+      "name": "yebadi",
+      "pages": [
+        "pages/train/train"
+      ]
+    },
+    {
+      "root": "packageDice",
+      "name": "dice",
+      "pages": [
+        "pages/roll/roll"
+      ]
+    },
+    {
+      "root": "packageAnniversary",
+      "name": "anniversary",
+      "pages": [
+        "pages/index/index"
+      ]
+    },
+    {
+      "root": "packageLight",
+      "name": "light",
+      "pages": [
+        "pages/light/light"
+      ]
+    },
+    {
+      "root": "packageDoodle",
+      "name": "doodle",
+      "pages": [
+        "pages/board/board"
+      ]
+    },
+    {
+      "root": "packageRecord",
+      "name": "record",
+      "pages": [
+        "pages/index/index"
+      ]
+    },
+    {
+      "root": "packageCaicai",
+      "name": "caicai",
+      "pages": [
+        "pages/index/index"
+      ]
+    }
+  ],
+  "preloadRule": {
+    "pages/home/home": {
+      "network": "all",
+      "packages": ["qizhi", "yebadi", "dice", "anniversary", "light", "doodle", "record", "caicai"]
+    }
+  },
+  "permission": {
+    "scope.record": {
+      "desc": "用于随手录音备忘"
+    }
+  },
+  "window": {
+    "navigationBarBackgroundColor": "#F2F3F5",
+    "navigationBarTitleText": "刷子zi",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F2F3F5",
+    "backgroundTextStyle": "dark"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

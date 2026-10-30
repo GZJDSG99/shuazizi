@@ -1,0 +1,56 @@
+<view class="page">
+  <view class="nav" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-inner" style="height: {{navBarHeight}}px;">
+      <view class="nav-back" bindtap="onBack">‹</view>
+      <text class="nav-title">涂鸦画板</text>
+    </view>
+  </view>
+
+  <view class="stage" style="top: {{navTotalHeight}}px;">
+    <canvas
+      type="2d"
+      id="doodle"
+      class="canvas"
+      disable-scroll="{{true}}"
+      bindtouchstart="onTouchStart"
+      bindtouchmove="onTouchMove"
+      bindtouchend="onTouchEnd"
+      bindtouchcancel="onTouchEnd"
+    ></canvas>
+  </view>
+
+  <view class="dock">
+    <view class="row colors">
+      <view
+        wx:for="{{colors}}"
+        wx:key="*this"
+        class="swatch {{!eraser && color === item ? 'swatch-on' : ''}}"
+        style="background: {{item}};"
+        data-color="{{item}}"
+        bindtap="onPickColor"
+      ></view>
+      <view class="swatch eraser {{eraser ? 'swatch-on' : ''}}" bindtap="onPickEraser">
+        <text class="eraser-mark">橡</text>
+      </view>
+    </view>
+
+    <view class="row tools">
+      <view class="sizes">
+        <view
+          wx:for="{{sizes}}"
+          wx:key="id"
+          class="size-btn {{sizeId === item.id ? 'size-on' : ''}}"
+          data-id="{{item.id}}"
+          bindtap="onPickSize"
+        >
+          <view class="size-dot" style="width: {{item.dot}}rpx; height: {{item.dot}}rpx;"></view>
+        </view>
+      </view>
+      <view class="actions">
+        <view class="action-btn" bindtap="onUndo">撤销</view>
+        <view class="action-btn" bindtap="onClear">清空</view>
+        <view class="action-btn action-primary" bindtap="onShare">分享</view>
+      </view>
+    </view>
+  </view>
+</view>

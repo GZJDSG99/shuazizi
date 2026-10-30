@@ -1,0 +1,97 @@
+<view class="page">
+  <view class="nav" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-inner" style="height: {{navBarHeight}}px;">
+      <view class="nav-back" bindtap="onBack">‹</view>
+      <text class="nav-title">随手录音</text>
+    </view>
+  </view>
+
+  <view class="body" style="padding-top: {{navTotalHeight}}px;">
+    <view class="player {{discActive ? 'is-active' : ''}} {{recording ? 'is-recording' : ''}} {{playing ? 'is-playing' : ''}}">
+      <view class="slot-wrap">
+        <view class="slot"></view>
+        <view class="disc {{discActive ? 'is-out' : ''}} {{spinning ? 'is-spin' : ''}}">
+          <view class="disc-ring"></view>
+          <view class="disc-ring disc-ring-2"></view>
+          <view class="disc-label">
+            <view class="disc-hole"></view>
+          </view>
+        </view>
+      </view>
+
+      <view class="status-row">
+        <view class="eq {{spinning ? 'is-on' : ''}}">
+          <view class="eq-bar"></view>
+          <view class="eq-bar"></view>
+          <view class="eq-bar"></view>
+        </view>
+        <text class="status-text">{{statusText}}</text>
+      </view>
+
+      <text class="track-title">{{cardTitle}}</text>
+      <text class="track-sub">{{cardSub}}</text>
+
+      <view class="progress-block">
+        <view class="progress-track">
+          <view class="progress-fill" style="width: {{progressPct}}%;"></view>
+          <view class="progress-knob" style="left: {{progressPct}}%;"></view>
+        </view>
+        <view class="progress-times">
+          <text>{{currentLabel}}</text>
+          <text>{{totalLabel}}</text>
+        </view>
+      </view>
+
+      <view class="controls">
+        <view class="ctrl-side {{!canPrev ? 'is-disabled' : ''}}" bindtap="onPrev">
+          <view class="skip skip-prev"></view>
+        </view>
+        <view
+          class="ctrl-main {{recording ? 'mode-rec' : ''}} {{!recording && !currentId ? 'mode-idle' : ''}}"
+          bindtap="onMainAction"
+          hover-class="ctrl-main-hover"
+          hover-stay-time="80"
+        >
+          <view wx:if="{{recording}}" class="icon-stop"></view>
+          <view wx:elif="{{!currentId}}" class="icon-rec"></view>
+          <text wx:elif="{{playing}}" class="icon-pause">❚❚</text>
+          <text wx:else class="icon-play">▶</text>
+        </view>
+        <view class="ctrl-side {{!canNext ? 'is-disabled' : ''}}" bindtap="onNext">
+          <view class="skip skip-next"></view>
+        </view>
+      </view>
+    </view>
+
+    <view class="list-head" wx:if="{{records.length}}">
+      <text class="list-title">录音列表</text>
+      <text class="list-count">{{records.length}}</text>
+    </view>
+
+    <view class="list-card" wx:if="{{records.length}}">
+      <view
+        wx:for="{{records}}"
+        wx:key="id"
+        class="item {{currentId === item.id ? 'is-current' : ''}} {{index === records.length - 1 ? 'item-last' : ''}}"
+        data-id="{{item.id}}"
+        bindtap="onSelectTrack"
+      >
+        <view class="item-main">
+          <view class="item-index">{{playing && playingId === item.id ? '♪' : index + 1}}</view>
+          <view class="item-text">
+            <text class="item-name">{{item.name}}</text>
+            <text class="item-meta">{{item.durationLabel}} · {{item.timeLabel}}</text>
+          </view>
+        </view>
+        <view class="item-actions">
+          <view class="action" data-id="{{item.id}}" catchtap="onRename">改名</view>
+          <view class="action action-danger" data-id="{{item.id}}" catchtap="onDelete">删除</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="empty" wx:else>
+      <text class="empty-text">还没有录音，点中间红钮开始</text>
+    </view>
+  </view>
+</view>

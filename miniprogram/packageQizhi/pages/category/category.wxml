@@ -1,0 +1,25 @@
+<view class="page">
+  <view wx:if="{{!categories.length}}" class="empty">
+    <view class="empty-title">还没有分类</view>
+    <view class="empty-desc">先建一个分类，例如「水电」「泥木」「主材」</view>
+  </view>
+
+  <view wx:else class="list">
+    <view class="row" wx:for="{{categories}}" wx:key="id">
+      <view class="main">
+        <text class="name">{{item.name}}</text>
+        <text class="count">{{item.count}} 项</text>
+      </view>
+      <view class="actions">
+        <button class="mini" size="mini" data-id="{{item.id}}" data-dir="up" bindtap="onMove" disabled="{{index === 0}}">上移</button>
+        <button class="mini" size="mini" data-id="{{item.id}}" data-dir="down" bindtap="onMove" disabled="{{index === categories.length - 1}}">下移</button>
+        <button class="mini" size="mini" data-id="{{item.id}}" data-name="{{item.name}}" bindtap="onRename">改名</button>
+        <button class="mini danger" size="mini" data-id="{{item.id}}" bindtap="onDelete">删除</button>
+      </view>
+    </view>
+  </view>
+
+  <view class="footer">
+    <button class="btn-primary" bindtap="onAdd">＋ 新建分类</button>
+  </view>
+</view>

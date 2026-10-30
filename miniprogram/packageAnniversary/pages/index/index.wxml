@@ -1,0 +1,56 @@
+<view class="page">
+  <view class="nav" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-inner" style="height: {{navBarHeight}}px;">
+      <view class="nav-back" bindtap="onBack">‹</view>
+      <text class="nav-title">纪念日</text>
+    </view>
+  </view>
+
+  <view class="body" style="padding-top: {{navTotalHeight}}px;">
+    <view class="card hero">
+      <image class="hero-icon" src="/images/tool-anniversary.png" mode="aspectFit" />
+      <text class="hero-label">首页预览</text>
+      <text class="hero-days">{{previewText}}</text>
+      <text class="hero-sub">{{rangeText}}</text>
+      <view
+        class="share-btn {{sharing ? 'is-busy' : ''}} {{canShare ? '' : 'is-disabled'}}"
+        bindtap="onShareCard"
+        hover-class="share-btn-hover"
+        hover-stay-time="80"
+      >{{sharing ? '生成中' : '分享卡片'}}</view>
+    </view>
+
+    <canvas type="2d" id="anniversaryShareCanvas" class="share-canvas"></canvas>
+
+    <view class="card">
+      <view class="field field-block" bindtap="onEditTemplate">
+        <view class="field-top">
+          <text class="field-label">卡片文案</text>
+          <text class="field-edit">编辑</text>
+        </view>
+        <text class="field-template">{{cardTemplate}}</text>
+      </view>
+      <view class="hint">文案里写 {{nPlaceholder}}，会自动替换成天数</view>
+      <view class="divider"></view>
+      <view class="field">
+        <text class="field-label">开始日期</text>
+        <picker mode="date" value="{{startDate}}" end="{{today}}" bindchange="onStartChange">
+          <view class="field-value">{{startDate || '请选择'}}</view>
+        </picker>
+      </view>
+      <view class="divider"></view>
+      <view class="field">
+        <text class="field-label">结束日期</text>
+        <picker mode="date" value="{{endDate}}" start="{{startDate || ''}}" bindchange="onEndChange">
+          <view class="field-value">{{endDate}}</view>
+        </picker>
+      </view>
+      <view class="hint">结束日期默认今天；首页天数始终按「今天」计算。</view>
+    </view>
+
+    <view class="actions">
+      <button class="btn-main" bindtap="onUseToday">结束日期设为今天</button>
+      <button class="btn-sub" bindtap="onClearStart">清除开始日期</button>
+    </view>
+  </view>
+</view>
